@@ -1,0 +1,2695 @@
+<!doctype html>
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>CORE//PORTFOLIO — Arrofi</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-bright": "#3a3939",
+              "primary-fixed": "#f2daff",
+              "on-error": "#690005",
+              "tertiary-container": "#e70063",
+              "surface-dim": "#131313",
+              "on-error-container": "#ffdad6",
+              "primary-container": "#9d4edd",
+              "surface-container-low": "#1c1b1b",
+              "surface-container": "#201f1f",
+              "inverse-primary": "#8433c4",
+              "on-surface-variant": "#d0c2d5",
+              "on-primary-fixed-variant": "#6a0baa",
+              surface: "#131313",
+              "secondary-fixed-dim": "#00dfc1",
+              "secondary-fixed": "#26fedc",
+              "on-background": "#e5e2e1",
+              "on-tertiary": "#660028",
+              "on-surface": "#e5e2e1",
+              "secondary-container": "#00f2d1",
+              "on-primary-fixed": "#2e004e",
+              "on-primary": "#4c007d",
+              error: "#ffb4ab",
+              "tertiary-fixed-dim": "#ffb2bf",
+              "surface-container-lowest": "#0e0e0e",
+              primary: "#e0b6ff",
+              "tertiary-fixed": "#ffd9de",
+              "inverse-surface": "#e5e2e1",
+              tertiary: "#ffb2bf",
+              "outline-variant": "#4d4353",
+              "primary-fixed-dim": "#e0b6ff",
+              "on-secondary": "#00382f",
+              "on-tertiary-container": "#fffdff",
+              background: "#050505",
+              "on-secondary-container": "#006a5a",
+              "surface-container-high": "#2a2a2a",
+              "inverse-on-surface": "#313030",
+              "surface-container-highest": "#353534",
+              "on-tertiary-fixed-variant": "#90003b",
+              secondary: "#c7fff0",
+              "surface-tint": "#e0b6ff",
+              "on-primary-container": "#fffdff",
+              outline: "#998d9e",
+              "on-tertiary-fixed": "#3f0016",
+              "surface-variant": "#353534",
+              "on-secondary-fixed-variant": "#005144",
+              "on-secondary-fixed": "#00201a",
+              "error-container": "#93000a",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              "container-max": "1440px",
+              "margin-mobile": "24px",
+              "margin-desktop": "64px",
+              unit: "4px",
+              gutter: "24px",
+            },
+            fontFamily: {
+              "headline-md": ["Space Grotesk"],
+              "display-lg-mobile": ["Space Grotesk"],
+              "body-sm": ["Geist"],
+              "display-lg": ["Space Grotesk"],
+              "label-mono": ["JetBrains Mono"],
+              "body-lg": ["Geist"],
+            },
+            fontSize: {
+              "headline-md": [
+                "32px",
+                {
+                  lineHeight: "1.2",
+                  letterSpacing: "0.02em",
+                  fontWeight: "500",
+                },
+              ],
+              "display-lg-mobile": [
+                "40px",
+                {
+                  lineHeight: "1.1",
+                  letterSpacing: "-0.02em",
+                  fontWeight: "700",
+                },
+              ],
+              "body-sm": ["14px", { lineHeight: "1.5", fontWeight: "400" }],
+              "display-lg": [
+                "72px",
+                {
+                  lineHeight: "1.1",
+                  letterSpacing: "-0.04em",
+                  fontWeight: "700",
+                },
+              ],
+              "label-mono": [
+                "12px",
+                {
+                  lineHeight: "1.2",
+                  letterSpacing: "0.1em",
+                  fontWeight: "500",
+                },
+              ],
+              "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      body {
+        background-color: #050505;
+        color: #e5e2e1;
+        overflow-x: hidden;
+        scroll-behavior: smooth;
+        cursor: none;
+      }
+
+      #cursor-dot {
+        width: 8px;
+        height: 8px;
+        background: #26fedc;
+        border-radius: 50%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 9999;
+        transform: translate(-50%, -50%);
+        transition:
+          transform 0.05s,
+          background 0.2s;
+        box-shadow: 0 0 8px rgba(38, 254, 220, 0.8);
+      }
+      #cursor-ring {
+        width: 32px;
+        height: 32px;
+        border: 1px solid rgba(224, 182, 255, 0.5);
+        border-radius: 50%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 9998;
+        transform: translate(-50%, -50%);
+        transition:
+          width 0.3s,
+          height 0.3s,
+          border-color 0.3s,
+          transform 0.12s ease-out;
+      }
+      #cursor-ring.hover {
+        width: 48px;
+        height: 48px;
+        border-color: rgba(38, 254, 220, 0.7);
+      }
+
+      #loading-screen {
+        position: fixed;
+        inset: 0;
+        background: #050505;
+        z-index: 10000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+        transition:
+          opacity 0.6s ease,
+          visibility 0.6s ease;
+      }
+      #loading-screen.hidden {
+        opacity: 0;
+        visibility: hidden;
+      }
+      #loading-bar-track {
+        width: 240px;
+        height: 2px;
+        background: rgba(224, 182, 255, 0.1);
+        position: relative;
+        overflow: hidden;
+      }
+      #loading-bar-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #9d4edd, #26fedc);
+        width: 0%;
+        transition: width 0.05s linear;
+        box-shadow: 0 0 10px rgba(38, 254, 220, 0.5);
+      }
+
+      .scanline-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background:
+          linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.18) 50%),
+          linear-gradient(
+            90deg,
+            rgba(255, 0, 0, 0.02),
+            rgba(0, 255, 0, 0.008),
+            rgba(0, 0, 255, 0.02)
+          );
+        z-index: 999;
+        background-size:
+          100% 3px,
+          3px 100%;
+        pointer-events: none;
+        opacity: 0.3;
+        transition: opacity 0.08s;
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(28px);
+        transition:
+          opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+          transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .reveal-left {
+        opacity: 0;
+        transform: translateX(-28px);
+        transition:
+          opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+          transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .reveal-left.visible {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      .reveal-right {
+        opacity: 0;
+        transform: translateX(28px);
+        transition:
+          opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+          transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .reveal-right.visible {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .delay-100 {
+        transition-delay: 0.1s;
+      }
+      .delay-200 {
+        transition-delay: 0.2s;
+      }
+      .delay-300 {
+        transition-delay: 0.3s;
+      }
+      .delay-400 {
+        transition-delay: 0.4s;
+      }
+
+      .glitch-hover:hover {
+        animation: glitch-skew 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both
+          infinite;
+      }
+      @keyframes glitch-skew {
+        0% {
+          transform: skew(0deg);
+        }
+        20% {
+          transform: skew(-3deg);
+        }
+        40% {
+          transform: skew(3deg);
+        }
+        60% {
+          transform: skew(-1deg);
+        }
+        80% {
+          transform: skew(1deg);
+        }
+        100% {
+          transform: skew(0deg);
+        }
+      }
+
+      .typing-cursor::after {
+        content: "\25AE";
+        animation: blink 0.7s step-end infinite;
+        color: #26fedc;
+        margin-left: 2px;
+      }
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+
+      .glow-sm {
+        text-shadow: 0 0 12px rgba(224, 182, 255, 0.55);
+      }
+      .glow-teal {
+        text-shadow: 0 0 12px rgba(38, 254, 220, 0.55);
+      }
+
+      .vertical-interlace {
+        background: repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 1px,
+          rgba(224, 182, 255, 0.04) 1px,
+          rgba(224, 182, 255, 0.04) 2px
+        );
+      }
+
+      .dot-grid {
+        background-image: radial-gradient(
+          circle,
+          rgba(157, 78, 221, 0.25) 1px,
+          transparent 1px
+        );
+        background-size: 28px 28px;
+      }
+
+      .mask-edges {
+        mask-image: linear-gradient(
+          to right,
+          transparent 0%,
+          black 6%,
+          black 94%,
+          transparent 100%
+        );
+        -webkit-mask-image: linear-gradient(
+          to right,
+          transparent 0%,
+          black 6%,
+          black 94%,
+          transparent 100%
+        );
+      }
+
+      .animate-marquee {
+        animation: marquee 28s linear infinite;
+      }
+      .animate-marquee:hover {
+        animation-play-state: paused;
+      }
+      @keyframes marquee {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+
+      .ambient-line {
+        position: absolute;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(38, 254, 220, 0.15),
+          transparent
+        );
+        animation: slide-line 8s linear infinite;
+        opacity: 0;
+      }
+      @keyframes slide-line {
+        0% {
+          transform: translateX(-100%);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        90% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateX(100vw);
+          opacity: 0;
+        }
+      }
+
+      .project-card {
+        position: relative;
+        overflow: hidden;
+        transition:
+          border-color 0.3s,
+          box-shadow 0.3s,
+          transform 0.3s;
+      }
+      .project-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(157, 78, 221, 0.04),
+          rgba(38, 254, 220, 0.04)
+        );
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      .project-card:hover::before {
+        opacity: 1;
+      }
+      .project-card:hover {
+        border-color: #26fedc !important;
+        box-shadow:
+          0 0 24px rgba(38, 254, 220, 0.08),
+          inset 0 0 24px rgba(38, 254, 220, 0.03);
+        transform: translateY(-3px);
+      }
+
+      .skill-bar-fill {
+        height: 2px;
+        background: linear-gradient(90deg, #9d4edd, #26fedc);
+        border-radius: 2px;
+        transform-origin: left;
+        transform: scaleX(0);
+        transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        box-shadow: 0 0 6px rgba(38, 254, 220, 0.4);
+      }
+      .skill-bar-fill.active {
+        transform: scaleX(1);
+      }
+
+      .cert-card {
+        transition:
+          border-color 0.35s,
+          box-shadow 0.35s,
+          transform 0.35s;
+      }
+      .cert-card:hover {
+        border-color: rgba(38, 254, 220, 0.45) !important;
+        box-shadow: 0 0 32px rgba(38, 254, 220, 0.09);
+        transform: translateY(-4px);
+      }
+
+      ::-webkit-scrollbar {
+        width: 4px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #0e0e0e;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(157, 78, 221, 0.4);
+        border-radius: 2px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(38, 254, 220, 0.5);
+      }
+
+      .corner-tl {
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        width: 14px;
+        height: 14px;
+        border-top: 1.5px solid #e0b6ff;
+        border-left: 1.5px solid #e0b6ff;
+      }
+      .corner-br {
+        position: absolute;
+        bottom: -2px;
+        right: -2px;
+        width: 14px;
+        height: 14px;
+        border-bottom: 1.5px solid #e0b6ff;
+        border-right: 1.5px solid #e0b6ff;
+      }
+
+      .safe-area-bottom {
+        padding-bottom: max(8px, env(safe-area-inset-bottom, 8px));
+      }
+
+      .masonry-grid {
+        column-count: 2;
+        column-gap: 12px;
+      }
+      .masonry-grid .masonry-item {
+        break-inside: avoid;
+        margin-bottom: 12px;
+        border-radius: 16px;
+        overflow: hidden;
+        border: 1px solid rgba(224, 182, 255, 0.1);
+        transition: border-color 0.35s, box-shadow 0.35s, transform 0.35s;
+        display: inline-block;
+        width: 100%;
+      }
+      .masonry-grid .masonry-item:hover {
+        border-color: rgba(38, 254, 220, 0.45);
+        box-shadow: 0 0 32px rgba(38, 254, 220, 0.09);
+        transform: translateY(-4px);
+      }
+        .masonry-grid .masonry-item img {
+        width: 100%;
+        height: auto;
+        display: block;
+        cursor: pointer;
+      }
+      @media (min-width: 768px) {
+        .masonry-grid {
+          column-count: 4;
+          column-gap: 16px;
+        }
+        .masonry-grid .masonry-item {
+          margin-bottom: 16px;
+        }
+      }
+
+      #lightbox {
+        position: fixed;
+        inset: 0;
+        z-index: 300;
+        background: rgba(0, 0, 0, 0.88);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s, visibility 0.3s;
+      }
+      #lightbox.active {
+        opacity: 1;
+        visibility: visible;
+      }
+      #lightbox img {
+        max-width: 90vw;
+        max-height: 85vh;
+        object-fit: contain;
+        border-radius: 12px;
+        border: 1px solid rgba(224, 182, 255, 0.15);
+        box-shadow: 0 0 60px rgba(157, 78, 221, 0.15);
+        transform: scale(0.9);
+        transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      #lightbox.active img {
+        transform: scale(1);
+      }
+      #lightbox .lb-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #e5e2e1;
+        background: rgba(0,0,0,0.5);
+        border: 1px solid rgba(224, 182, 255, 0.2);
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background 0.2s, border-color 0.2s;
+        font-size: 22px;
+      }
+      #lightbox .lb-close:hover {
+        background: rgba(157, 78, 221, 0.2);
+        border-color: rgba(224, 182, 255, 0.4);
+      }
+      #lightbox .lb-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #e5e2e1;
+        background: rgba(0,0,0,0.5);
+        border: 1px solid rgba(224, 182, 255, 0.2);
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background 0.2s, border-color 0.2s;
+        font-size: 20px;
+        user-select: none;
+      }
+      #lightbox .lb-nav:hover {
+        background: rgba(157, 78, 221, 0.2);
+        border-color: rgba(224, 182, 255, 0.4);
+      }
+      #lightbox .lb-prev { left: 20px; }
+      #lightbox .lb-next { right: 20px; }
+      #lightbox .lb-counter {
+        position: absolute;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: JetBrains Mono, monospace;
+        font-size: 12px;
+        color: rgba(255,255,255,0.5);
+        letter-spacing: 0.1em;
+      }
+      @media (max-width: 767px) {
+        #lightbox .lb-prev { left: 8px; }
+        #lightbox .lb-next { right: 8px; }
+        #lightbox .lb-nav { width: 36px; height: 36px; font-size: 16px; }
+      }
+
+      .load-more-btn {
+        display: block;
+        margin: 32px auto 0;
+        padding: 12px 32px;
+        border: 1px solid rgba(38, 254, 220, 0.4);
+        color: #26fedc;
+        background: transparent;
+        font-family: JetBrains Mono, monospace;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        cursor: pointer;
+        transition: background 0.25s, box-shadow 0.25s, border-color 0.25s;
+      }
+      .load-more-btn:hover {
+        background: rgba(38, 254, 220, 0.08);
+        box-shadow: 0 0 20px rgba(38, 254, 220, 0.12);
+        border-color: #26fedc;
+      }
+      .load-more-btn.hidden { display: none; }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        .reveal,
+        .reveal-left,
+        .reveal-right,
+        .skill-bar-fill {
+          transition: none !important;
+          animation: none !important;
+        }
+      }
+
+      #mobile-drawer.visible .drawer-link {
+        opacity: 0;
+        transform: translateY(16px);
+        animation: drawerFadeIn 0.4s ease forwards;
+      }
+      #mobile-drawer.visible .drawer-link:nth-child(1) { animation-delay: 0.05s; }
+      #mobile-drawer.visible .drawer-link:nth-child(2) { animation-delay: 0.1s; }
+      #mobile-drawer.visible .drawer-link:nth-child(3) { animation-delay: 0.15s; }
+      #mobile-drawer.visible .drawer-link:nth-child(4) { animation-delay: 0.2s; }
+      #mobile-drawer.visible .drawer-link:nth-child(5) { animation-delay: 0.25s; }
+      #mobile-drawer.visible .drawer-link:nth-child(6) { animation-delay: 0.3s; }
+      @keyframes drawerFadeIn {
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @media (hover: none) and (pointer: coarse) {
+        body, a, button, [role="button"], input, textarea, [contenteditable] {
+          cursor: auto !important;
+        }
+        #cursor-dot, #cursor-ring, .scanline-overlay {
+          display: none !important;
+        }
+        .project-card:hover,
+        .cert-card:hover,
+        .cert-card:hover::before {
+          transform: none !important;
+          box-shadow: none !important;
+        }
+      }
+
+      .nav-link {
+        position: relative;
+      }
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: #26fedc;
+        transition: width 0.25s;
+      }
+      .nav-link:hover::after {
+        width: 100%;
+      }
+
+      .stat-item {
+        animation: fade-up 0.6s ease both;
+      }
+      @keyframes fade-up {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .btn-cyber {
+        position: relative;
+        overflow: hidden;
+        transition:
+          background 0.25s,
+          box-shadow 0.25s,
+          color 0.25s;
+      }
+      .btn-cyber:hover {
+        box-shadow: 0 0 20px rgba(38, 254, 220, 0.2);
+      }
+      section[id] {
+        scroll-margin-top: 72px;
+      }
+
+      .btn-cyber::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          circle at center,
+          rgba(38, 254, 220, 0.15) 0%,
+          transparent 70%
+        );
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      .btn-cyber:hover::after {
+        opacity: 1;
+      }
+
+      input,
+      textarea,
+      [contenteditable] {
+        cursor: none;
+      }
+      a,
+      button,
+      [role="button"] {
+        cursor: none;
+      }
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 200;
+        background: rgba(0, 0, 0, 0.75);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s, visibility 0.3s;
+      }
+      .modal-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+      .modal-content {
+        background: #0e0e0e;
+        border: 1px solid rgba(38, 254, 220, 0.15);
+        border-radius: 16px;
+        padding: 20px;
+        max-width: 500px;
+        width: 100%;
+        max-height: 90vh;
+        overflow-y: auto;
+        transform: scale(0.95) translateY(10px);
+        transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+        position: relative;
+      }
+      .modal-overlay.active .modal-content {
+        transform: scale(1) translateY(0);
+      }
+      .modal-content::-webkit-scrollbar {
+        width: 4px;
+      }
+      .modal-content::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .modal-content::-webkit-scrollbar-thumb {
+        background: rgba(38, 254, 220, 0.3);
+        border-radius: 2px;
+      }
+      .modal-feature {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 0;
+        font-family: var(--font-mono);
+        font-size: 13px;
+        color: rgba(255,255,255,0.65);
+      }
+      .modal-feature::before {
+        content: "▹";
+        color: #26fedc;
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body class="font-body-lg text-on-surface">
+    <div id="cursor-dot"></div>
+    <div id="cursor-ring"></div>
+
+    <div id="loading-screen">
+      <div
+        class="font-label-mono text-primary text-xs tracking-[0.4em] uppercase"
+        id="loading-label"
+      >
+        BOOT SEQUENCE
+      </div>
+      <div id="loading-bar-track"><div id="loading-bar-fill"></div></div>
+      <div
+        class="font-label-mono text-outline text-[10px] tracking-widest"
+        id="loading-status"
+      >
+        Initializing...
+      </div>
+    </div>
+
+    <div class="scanline-overlay" id="scanline"></div>
+
+    <nav
+      class="fixed top-0 w-full bg-surface/40 backdrop-blur-md border-b border-primary/20 flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 z-[100] transition-all duration-300"
+      id="main-nav"
+    >
+      <div
+        class="text-headline-md font-headline-md tracking-tighter text-primary uppercase glow-sm text-lg"
+      >
+        CORE//PORTFOLIO
+      </div>
+      <div class="hidden md:flex gap-8 font-label-mono text-label-mono">
+        <a
+          class="nav-link text-secondary-fixed font-bold glow-teal"
+          href="#about"
+          >BIOGRAPHY</a
+        >
+        <a
+          class="nav-link text-on-surface-variant/70 hover:text-secondary-fixed transition-colors"
+          href="#skills"
+          >CAPABILITIES</a
+        >
+        <a
+          class="nav-link text-on-surface-variant/70 hover:text-secondary-fixed transition-colors"
+          href="#projects"
+          >PROJECTS</a
+        >
+        <a
+          class="nav-link text-on-surface-variant/70 hover:text-secondary-fixed transition-colors"
+          href="#gallery"
+          >CERTIFICATES</a
+        >
+        <a
+          class="nav-link text-on-surface-variant/70 hover:text-secondary-fixed transition-colors"
+          href="#random-gallery"
+          >GALLERY</a
+        >
+        <a
+          class="nav-link text-on-surface-variant/70 hover:text-secondary-fixed transition-colors"
+          href="#terminal"
+          >ENVIRONMENT</a
+        >
+      </div>
+      <button id="hamburger-btn" class="md:hidden flex items-center justify-center w-10 h-10 text-primary hover:text-secondary-fixed transition-colors" aria-label="Toggle navigation">
+        <span class="material-symbols-outlined text-2xl">menu</span>
+      </button>
+      <div class="hidden md:flex items-center gap-4 text-primary">
+        <span
+          class="material-symbols-outlined animate-pulse text-secondary-fixed"
+          >code</span
+        >
+        <span class="material-symbols-outlined">terminal</span>
+      </div>
+    </nav>
+
+    <div id="mobile-drawer" class="fixed inset-0 z-[99] bg-black/90 backdrop-blur-2xl opacity-0 invisible transition-all duration-300 md:hidden">
+      <div class="flex flex-col items-center justify-center h-full gap-6 font-label-mono text-lg px-8">
+        <a class="drawer-link text-secondary-fixed font-bold glow-teal uppercase tracking-[0.2em]" href="#about" onclick="closeDrawer()">BIOGRAPHY</a>
+        <a class="drawer-link text-on-surface-variant/70 hover:text-secondary-fixed transition-colors uppercase tracking-[0.2em]" href="#skills" onclick="closeDrawer()">CAPABILITIES</a>
+        <a class="drawer-link text-on-surface-variant/70 hover:text-secondary-fixed transition-colors uppercase tracking-[0.2em]" href="#projects" onclick="closeDrawer()">PROJECTS</a>
+        <a class="drawer-link text-on-surface-variant/70 hover:text-secondary-fixed transition-colors uppercase tracking-[0.2em]" href="#gallery" onclick="closeDrawer()">CERTIFICATES</a>
+        <a class="drawer-link text-on-surface-variant/70 hover:text-secondary-fixed transition-colors uppercase tracking-[0.2em]" href="#random-gallery" onclick="closeDrawer()">GALLERY</a>
+        <a class="drawer-link text-on-surface-variant/70 hover:text-secondary-fixed transition-colors uppercase tracking-[0.2em]" href="#terminal" onclick="closeDrawer()">ENVIRONMENT</a>
+      </div>
+    </div>
+
+    <aside
+      class="fixed left-0 top-0 h-full w-20 hover:w-64 transition-all duration-500 overflow-hidden overflow-y-auto z-[90] bg-surface/10 backdrop-blur-xl border-r border-primary/30 flex flex-col py-24 gap-8 hidden md:flex"
+    >
+      <div class="px-6 flex items-center gap-4 mb-8">
+        <div class="relative w-8 h-8 flex items-center justify-center shrink-0">
+          <div
+            class="absolute inset-0 rounded-full border border-primary/50 animate-ping opacity-30"
+          ></div>
+          <div
+            class="w-2 h-2 rounded-full bg-secondary-fixed shadow-[0_0_6px_rgba(38,254,220,0.9)]"
+          ></div>
+        </div>
+        <div id="sidebar-status" class="overflow-hidden transition-all duration-500" style="width: 0; opacity: 0;">
+          <p class="font-label-mono text-primary font-bold text-[10px] whitespace-nowrap">
+            SYSTEM ACTIVE
+          </p>
+          <p class="font-label-mono text-outline text-[8px] whitespace-nowrap">
+            READY FOR PROTOCOLS
+          </p>
+        </div>
+      </div>
+      <style>
+        aside:hover #sidebar-status { width: 120px !important; opacity: 1 !important; }
+      </style>
+      <div class="flex flex-col gap-1">
+        <a
+          href="#about"
+          class="group flex items-center px-6 py-3 text-secondary-fixed-dim bg-secondary-container/10 border-l-2 border-secondary-fixed-dim transition-all hover:bg-secondary-container/20"
+        >
+          <span class="material-symbols-outlined mr-6 shrink-0">person</span>
+          <span
+            class="font-label-mono uppercase tracking-widest whitespace-nowrap overflow-hidden text-xs"
+            >Bio</span
+          >
+        </a>
+        <a
+          href="#skills"
+          class="group flex items-center px-6 py-3 text-outline hover:text-primary transition-all hover:bg-primary/5 border-l-2 border-transparent hover:border-primary/40"
+        >
+          <span class="material-symbols-outlined mr-6 shrink-0"
+            >psychology</span
+          >
+          <span
+            class="font-label-mono uppercase tracking-widest whitespace-nowrap overflow-hidden text-xs"
+            >Skills</span
+          >
+        </a>
+        <a
+          href="#projects"
+          class="group flex items-center px-6 py-3 text-outline hover:text-primary transition-all hover:bg-primary/5 border-l-2 border-transparent hover:border-primary/40"
+        >
+          <span class="material-symbols-outlined mr-6 shrink-0">layers</span>
+          <span
+            class="font-label-mono uppercase tracking-widest whitespace-nowrap overflow-hidden text-xs"
+            >Projects</span
+          >
+        </a>
+        <a
+          href="#gallery"
+          class="group flex items-center px-6 py-3 text-outline hover:text-primary transition-all hover:bg-primary/5 border-l-2 border-transparent hover:border-primary/40"
+        >
+          <span class="material-symbols-outlined mr-6 shrink-0">verified</span>
+          <span
+            class="font-label-mono uppercase tracking-widest whitespace-nowrap overflow-hidden text-xs"
+            >Certificates</span
+          >
+        </a>
+        <a
+          href="#random-gallery"
+          class="group flex items-center px-6 py-3 text-outline hover:text-primary transition-all hover:bg-primary/5 border-l-2 border-transparent hover:border-primary/40"
+        >
+          <span class="material-symbols-outlined mr-6 shrink-0"
+            >photo_library</span
+          >
+          <span
+            class="font-label-mono uppercase tracking-widest whitespace-nowrap overflow-hidden text-xs"
+            >Gallery</span
+          >
+        </a>
+        <a
+          href="#terminal"
+          class="group flex items-center px-6 py-3 text-outline hover:text-primary transition-all hover:bg-primary/5 border-l-2 border-transparent hover:border-primary/40"
+        >
+          <span class="material-symbols-outlined mr-6 shrink-0">terminal</span>
+          <span
+            class="font-label-mono uppercase tracking-widest whitespace-nowrap overflow-hidden text-xs"
+            >Terminal</span
+          >
+        </a>
+      </div>
+    </aside>
+
+    <main
+      class="relative min-h-screen w-full flex flex-col items-center pl-0 md:pl-20 pb-20 md:pb-0"
+    >
+      <!-- ── HERO ── -->
+      <section
+        class="relative h-screen w-full flex items-center justify-center overflow-hidden"
+      >
+        <div
+          class="absolute inset-0 dot-grid opacity-20 pointer-events-none"
+        ></div>
+        <div
+          class="absolute inset-0 flex items-center justify-center pointer-events-none"
+        >
+          <div
+            class="w-[300px] h-[300px] md:w-[600px] md:h-[600px] rounded-full bg-primary/5 blur-[80px] md:blur-[120px]"
+          ></div>
+        </div>
+        <div
+          class="ambient-line"
+          style="
+            width: 60%;
+            top: 25%;
+            animation-delay: 0s;
+            animation-duration: 9s;
+          "
+        ></div>
+        <div
+          class="ambient-line"
+          style="
+            width: 40%;
+            top: 55%;
+            animation-delay: 3s;
+            animation-duration: 12s;
+          "
+        ></div>
+        <div
+          class="ambient-line"
+          style="
+            width: 70%;
+            top: 75%;
+            animation-delay: 6s;
+            animation-duration: 10s;
+          "
+        ></div>
+
+        <div
+          class="relative z-20 text-center px-margin-mobile md:px-margin-desktop"
+        >
+          <div
+            class="reveal inline-block px-3 py-1 border border-primary/30 mb-6 font-label-mono text-primary text-[10px] tracking-[0.3em] uppercase bg-primary/5 backdrop-blur-sm"
+          >
+            SYSTEM ARCHITECT // BEGINNER FULL-STACK DEVELOPER
+          </div>
+          <h1
+            class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary tracking-tighter uppercase mb-4 leading-none glitch-hover reveal delay-100"
+          >
+            Arrofi<br /><span
+              id="hero-sub"
+              class="typing-cursor text-secondary-fixed"
+            ></span>
+          </h1>
+          <p
+            class="font-label-mono text-on-surface-variant max-w-xl mx-auto opacity-70 text-body-sm md:text-body-lg reveal delay-200"
+          >
+            [PRINCIPLE] — Menuju kebebasan dalam berpikir dan bertindak.
+          </p>
+
+          <div class="mt-8 flex gap-4 md:gap-8 justify-center reveal delay-300">
+            <div class="stat-item text-center" style="animation-delay: 0.4s">
+              <p
+                class="font-label-mono text-2xl font-bold text-secondary-fixed"
+              >
+                3+
+              </p>
+              <p
+                class="font-label-mono text-[10px] text-outline uppercase tracking-widest"
+              >
+                Tahun Exp
+              </p>
+            </div>
+            <div class="w-px bg-primary/20"></div>
+            <div class="stat-item text-center" style="animation-delay: 0.5s">
+              <p
+                class="font-label-mono text-2xl font-bold text-secondary-fixed"
+              >
+                20+
+              </p>
+              <p
+                class="font-label-mono text-[10px] text-outline uppercase tracking-widest"
+              >
+                Proyek
+              </p>
+            </div>
+            <div class="w-px bg-primary/20"></div>
+            <div class="stat-item text-center" style="animation-delay: 0.6s">
+              <p
+                class="font-label-mono text-2xl font-bold text-secondary-fixed"
+              >
+                ∞
+              </p>
+              <p
+                class="font-label-mono text-[10px] text-outline uppercase tracking-widest"
+              >
+                Semangat
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="mt-10 flex flex-col md:flex-row gap-4 justify-center font-label-mono reveal delay-400"
+          >
+            <a
+              href="https://wa.me/6285702552260?text=hallo%20kak%20,%20saya%20ingin%20konsultasi%20aplikasi%20kak"
+              class="btn-cyber px-6 md:px-8 py-2.5 md:py-3 border border-secondary-fixed text-secondary-fixed uppercase tracking-widest hover:bg-secondary-fixed/10 flex items-center justify-center gap-3 text-sm md:text-base"
+            >
+              <span class="w-1.5 h-1.5 bg-secondary-fixed animate-pulse"></span
+              >Hubungi Saya
+            </a>
+            <a
+              href="#projects"
+              class="btn-cyber px-6 md:px-8 py-2.5 md:py-3 border border-outline text-outline uppercase tracking-widest hover:border-primary hover:text-primary flex items-center justify-center text-sm md:text-base"
+            >
+              Lihat Proyek
+            </a>
+          </div>
+        </div>
+
+        <div
+          class="absolute bottom-10 left-0 md:left-margin-desktop hidden lg:block font-label-mono text-[10px] text-outline space-y-2 opacity-40 ml-8"
+        >
+          <p>LOC: INDONESIA//SOLO</p>
+          <p>STATUS: OPEN FOR PROJECTS</p>
+          <div class="w-48 h-px bg-outline/30 mt-4"></div>
+          <p>CORE_SPEED: OPTIMAL</p>
+        </div>
+        <div
+          class="absolute bottom-10 right-0 md:right-margin-desktop hidden lg:block font-label-mono text-[10px] text-outline text-right space-y-2 opacity-40 mr-8"
+        >
+          <p>STACK ENVIRONMENT ACTIVE</p>
+          <p>EFFICIENCY: 99.8%</p>
+          <div class="flex justify-end gap-1 mt-2">
+            <div class="w-1 h-4 bg-primary/40"></div>
+            <div class="w-1 h-4 bg-primary/20"></div>
+            <div class="w-1 h-4 bg-primary/80 animate-pulse"></div>
+            <div class="w-1 h-4 bg-primary/10"></div>
+          </div>
+        </div>
+        <div
+          class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40 animate-bounce"
+        >
+          <span
+            class="font-label-mono text-[9px] text-outline uppercase tracking-widest"
+            >Scroll</span
+          >
+          <div class="w-px h-8 bg-primary/40"></div>
+        </div>
+      </section>
+
+      <!-- ── ABOUT ── -->
+      <section
+        id="about"
+        class="w-full px-margin-mobile md:px-margin-desktop py-16 md:py-24 bg-surface-container-lowest/50 relative overflow-hidden"
+      >
+        <div
+          class="grid grid-cols-1 md:grid-cols-12 gap-gutter max-w-container-max mx-auto"
+        >
+          <div class="md:col-span-5 relative group reveal-left">
+            <div class="corner-tl"></div>
+            <div class="corner-br"></div>
+            <div
+              class="aspect-square bg-surface border border-primary/20 overflow-hidden relative flex items-center justify-center"
+            >
+              <img
+                src="foto/aku.jpg"
+                alt="Arrofi"
+                class="w-full h-full object-cover"
+              />
+              <div
+                class="absolute inset-0 bg-primary/5 mix-blend-overlay"
+              ></div>
+              <div
+                class="absolute top-4 right-4 font-label-mono text-primary text-[10px] bg-black/80 px-2 py-1"
+              >
+                IDENTITY_VIS
+              </div>
+            </div>
+          </div>
+
+          <div
+            id="skills"
+            class="md:col-span-7 flex flex-col justify-center border border-primary/10 p-8 md:p-12 bg-surface/30 backdrop-blur-md relative reveal-right"
+          >
+            <div
+              class="absolute top-4 right-4 text-outline font-label-mono text-[9px] tracking-widest"
+            >
+              TYPE: DEVELOPER_DATA
+            </div>
+            <h2
+              class="font-headline-md text-primary mb-8 border-b border-primary/20 pb-4"
+            >
+              CLASSIFIED BIOGRAPHY & SKILLS
+            </h2>
+            <div
+              class="space-y-5 font-label-mono text-body-sm text-on-surface-variant"
+            >
+              <div class="grid grid-cols-3 border-b border-white/5 py-2">
+                <span class="opacity-50 uppercase text-xs">Core Focus</span>
+                <span
+                  class="col-span-2 text-secondary-fixed-dim uppercase tracking-wider text-xs"
+                  >Web, Desktop, Mobile Development and Beginner Roblox
+                  Development</span
+                >
+              </div>
+              <div class="grid grid-cols-3 border-b border-white/5 py-2">
+                <span class="opacity-50 uppercase text-xs">Tech Stack</span>
+                <span class="col-span-2 text-primary text-xs"
+                  >Laravel, Flutter, C#, Lua</span
+                >
+              </div>
+              <div class="grid grid-cols-3 border-b border-white/5 py-2">
+                <span class="opacity-50 uppercase text-xs">Tools</span>
+                <span class="col-span-2 text-xs"
+                  >Git, VS Code, Figma, Docker</span
+                >
+              </div>
+              <div class="grid grid-cols-3 border-b border-white/5 py-2">
+                <span class="opacity-50 uppercase text-xs">Another Skill</span>
+                <span class="col-span-2 text-xs"
+                  >Beginer Editor, Beginer Roblox Development</span
+                >
+              </div>
+              <div class="grid grid-cols-3 border-b border-white/5 py-2">
+                <span class="opacity-50 uppercase text-xs"
+                  >Tool for Editing</span
+                >
+                <span class="col-span-2 text-xs"
+                  >Alight Motion, Canva, CapCut, Piscart, Figma</span
+                >
+              </div>
+              <p
+                class="mt-6 opacity-70 leading-relaxed italic text-xs border-l-2 border-primary/30 pl-4"
+              >
+                "Saya fokus menerjemahkan ide kompleks menjadi solusi digital
+                interaktif yang fungsional dan estetik. Mengutamakan performa
+                tinggi, struktur kode yang modular, serta pengalaman pengguna
+                yang mulus."
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── PROJECTS ── -->
+      <section
+        id="projects"
+        class="w-full px-margin-mobile md:px-margin-desktop py-16 md:py-24 relative max-w-container-max mx-auto"
+      >
+        <div class="mb-12 reveal">
+          <div class="flex items-center gap-3 mb-2">
+            <span
+              class="font-label-mono text-[10px] text-outline tracking-[0.4em] uppercase"
+              >// 03</span
+            >
+            <div class="h-px flex-1 bg-primary/10"></div>
+          </div>
+          <h2
+            class="font-headline-md text-secondary-fixed uppercase tracking-wider border-b border-secondary-fixed/20 pb-4"
+          >
+            PROYEK UTAMA TERPILIH
+          </h2>
+        </div>
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6"
+        >
+          <div
+            class="cert-card reveal delay-100 group relative bg-surface-container-lowest border border-secondary-fixed/10 rounded-2xl p-4 pt-8"
+          >
+            <div
+              class="absolute top-3 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-secondary-fixed/60 shadow-[0_0_6px_rgba(38,254,220,0.4)] group-hover:bg-secondary-fixed group-hover:shadow-[0_0_10px_rgba(38,254,220,0.7)] transition-all duration-300"
+            ></div>
+            <div
+              class="aspect-[4/3] rounded-xl overflow-hidden bg-black/50 border border-primary/10 relative group"
+            >
+              <img
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                src="foto/Screenshot 2026-06-29 123935.png"
+                alt="Management Keuangan PT-Buana"
+                loading="lazy"
+              />
+              <div
+                class="absolute top-2 right-2 text-[9px] font-label-mono text-outline/60 bg-black/70 px-1.5 py-0.5 rounded"
+              >
+                01 // WEB
+              </div>
+            </div>
+            <p
+              class="mt-3 font-label-mono text-[11px] text-on-surface-variant/60 text-center group-hover:text-on-surface-variant transition-colors"
+            >
+              Management Keuangan PT-Buana
+            </p>
+          </div>
+          <div
+            class="cert-card reveal delay-200 group relative bg-surface-container-lowest border border-secondary-fixed/10 rounded-2xl p-4 pt-8"
+          >
+            <div
+              class="absolute top-3 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-secondary-fixed/60 shadow-[0_0_6px_rgba(38,254,220,0.4)] group-hover:bg-secondary-fixed group-hover:shadow-[0_0_10px_rgba(38,254,220,0.7)] transition-all duration-300"
+            ></div>
+            <div
+              class="aspect-[4/3] rounded-xl overflow-hidden bg-black/50 border border-primary/10 relative group"
+            >
+              <img
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                src="foto/Screenshot 2026-06-29 133533.png"
+                alt="Management Pengelolaan Laundry"
+                loading="lazy"
+              />
+              <div
+                class="absolute top-2 right-2 text-[9px] font-label-mono text-outline/60 bg-black/70 px-1.5 py-0.5 rounded"
+              >
+                02 // APP
+              </div>
+            </div>
+            <p
+              class="mt-3 font-label-mono text-[11px] text-on-surface-variant/60 text-center group-hover:text-on-surface-variant transition-colors"
+            >
+              Management Pengelolaan Laundry
+            </p>
+          </div>
+          <div
+            class="cert-card reveal delay-300 group relative bg-surface-container-lowest border border-secondary-fixed/10 rounded-2xl p-4 pt-8"
+          >
+            <div
+              class="absolute top-3 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-secondary-fixed/60 shadow-[0_0_6px_rgba(38,254,220,0.4)] group-hover:bg-secondary-fixed group-hover:shadow-[0_0_10px_rgba(38,254,220,0.7)] transition-all duration-300"
+            ></div>
+            <div
+              class="aspect-[4/3] rounded-xl overflow-hidden bg-black/50 border border-primary/10 relative group"
+            >
+              <img
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                src="foto/Screenshot 2026-06-29 133951.png"
+                alt="CMS Web Hotel"
+                loading="lazy"
+              />
+              <div
+                class="absolute top-2 right-2 text-[9px] font-label-mono text-outline/60 bg-black/70 px-1.5 py-0.5 rounded"
+              >
+                03 // CMS
+              </div>
+            </div>
+            <p
+              class="mt-3 font-label-mono text-[11px] text-on-surface-variant/60 text-center group-hover:text-on-surface-variant transition-colors"
+            >
+              CMS Web Hotel
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── TECH STACK MARQUEE ── -->
+      <section
+        id="tech-stack"
+        class="w-full px-margin-mobile md:px-margin-desktop py-10 relative max-w-container-max mx-auto overflow-hidden"
+      >
+        <div class="flex items-center gap-3 mb-8 reveal">
+          <span class="material-symbols-outlined text-primary text-lg"
+            >neurology</span
+          >
+          <h2
+            class="font-label-mono text-sm uppercase tracking-[0.4em] text-primary"
+          >
+            Tech Stack
+          </h2>
+          <div
+            class="h-px flex-1 bg-gradient-to-r from-primary/30 to-transparent"
+          ></div>
+        </div>
+        <div class="relative overflow-hidden mask-edges">
+          <div
+            class="flex w-max animate-marquee gap-10 md:gap-14 items-center py-2"
+            style="will-change: transform"
+          >
+            <div class="flex gap-10 md:gap-14 shrink-0 items-center">
+              <img class="w-10 h-10 md:w-14 md:h-14 opacity-60 hover:opacity-100 transition-opacity duration-500" src="https://cdn.simpleicons.org/laravel" alt="Laravel" loading="lazy" title="Laravel"/>
+              <img class="w-10 h-10 md:w-14 md:h-14 opacity-60 hover:opacity-100 transition-opacity duration-500" src="https://cdn.simpleicons.org/flutter" alt="Flutter" loading="lazy" title="Flutter"/>
+              <img class="w-10 h-10 md:w-14 md:h-14 opacity-60 hover:opacity-100 transition-opacity duration-500" src="https://cdn.simpleicons.org/lua" alt="Lua" loading="lazy" title="Lua"/>
+              <img class="w-10 h-10 md:w-14 md:h-14 opacity-60 hover:opacity-100 transition-opacity duration-500" src="https://cdn.simpleicons.org/git" alt="Git" loading="lazy" title="Git"/>
+              <img class="w-10 h-10 md:w-14 md:h-14 opacity-60 hover:opacity-100 transition-opacity duration-500" src="https://cdn.simpleicons.org/figma" alt="Figma" loading="lazy" title="Figma"/>
+              <img class="w-10 h-10 md:w-14 md:h-14 opacity-60 hover:opacity-100 transition-opacity duration-500" src="logo/canva.jpg" alt="Canva" loading="lazy" title="Canva"/>
+              <img class="w-10 h-10 md:w-14 md:h-14 opacity-60 hover:opacity-100 transition-opacity duration-500" src="logo/alight%20motion.jpg" alt="Alight Motion" loading="lazy" title="Alight Motion"/>
+              <img class="w-10 h-10 md:w-14 md:h-14 opacity-60 hover:opacity-100 transition-opacity duration-500" src="logo/roblox.jpg" alt="Roblox" loading="lazy" title="Roblox"/>
+            </div>
+            <div class="flex gap-10 md:gap-14 shrink-0 items-center" aria-hidden="true">
+              <img class="w-7 h-7 md:w-14 md:h-14 opacity-60" src="https://cdn.simpleicons.org/laravel" alt="" loading="lazy"/>
+              <img class="w-7 h-7 md:w-14 md:h-14 opacity-60" src="https://cdn.simpleicons.org/flutter" alt="" loading="lazy"/>
+              <img class="w-7 h-7 md:w-14 md:h-14 opacity-60" src="https://cdn.simpleicons.org/lua" alt="" loading="lazy"/>
+              <img class="w-7 h-7 md:w-14 md:h-14 opacity-60" src="https://cdn.simpleicons.org/git" alt="" loading="lazy"/>
+              <img class="w-7 h-7 md:w-14 md:h-14 opacity-60" src="https://cdn.simpleicons.org/figma" alt="" loading="lazy"/>
+              <img class="w-7 h-7 md:w-14 md:h-14 opacity-60" src="logo/canva.jpg" alt="" loading="lazy"/>
+              <img class="w-7 h-7 md:w-14 md:h-14 opacity-60" src="logo/alight%20motion.jpg" alt="" loading="lazy"/>
+              <img class="w-7 h-7 md:w-14 md:h-14 opacity-60" src="logo/roblox.jpg" alt="" loading="lazy"/>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── CERTIFICATES ── -->
+      <section
+        id="gallery"
+        class="w-full px-margin-mobile md:px-margin-desktop py-10 md:py-12 relative max-w-container-max mx-auto"
+      >
+        <div class="flex items-center gap-3 mb-2 reveal">
+          <span class="material-symbols-outlined text-secondary-fixed text-lg"
+            >verified</span
+          >
+          <h2
+            class="font-label-mono text-sm uppercase tracking-[0.4em] text-secondary-fixed"
+          >
+            Galeri Sertifikat
+          </h2>
+          <div
+            class="h-px flex-1 bg-gradient-to-r from-secondary-fixed/30 to-transparent"
+          ></div>
+        </div>
+        <p class="mt-2 mb-8 text-on-surface-variant text-xs md:text-sm reveal">
+          Koleksi sertifikat dan penghargaan yang telah diraih.
+        </p>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-5 md:gap-6">
+          <div
+            class="cert-card reveal delay-100 group relative bg-surface-container-lowest border border-secondary-fixed/10 rounded-2xl p-4 pt-8 cursor-pointer"
+            onclick="window.open('certificate/WhatsApp Image 2026-06-28 at 12.56.41.jpeg','_blank')"
+          >
+            <div
+              class="absolute top-3 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-secondary-fixed/60 shadow-[0_0_6px_rgba(38,254,220,0.4)] group-hover:bg-secondary-fixed group-hover:shadow-[0_0_10px_rgba(38,254,220,0.7)] transition-all duration-300"
+            ></div>
+            <div
+              class="aspect-[4/3] rounded-xl overflow-hidden bg-gradient-to-br from-primary/5 to-secondary-fixed/5 border border-primary/10 flex items-center justify-center"
+            >
+              <img
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                src="certificate/WhatsApp Image 2026-06-28 at 12.56.41.jpeg"
+                alt="Sertifikat Dicoding"
+                loading="lazy"
+              />
+            </div>
+            <p
+              class="mt-3 font-label-mono text-[11px] text-on-surface-variant/60 text-center group-hover:text-on-surface-variant transition-colors"
+            >
+              Sertifikat Cybersecurity Karanganyar
+            </p>
+            <div class="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity font-label-mono text-[9px] text-secondary-fixed bg-black/70 px-2 py-0.5 rounded">
+              Buka →
+            </div>
+          </div>
+          <div
+            class="cert-card reveal delay-200 group relative bg-surface-container-lowest border border-secondary-fixed/10 rounded-2xl p-4 pt-8 cursor-pointer"
+            onclick="window.open('certificate/sertifikat_course_905_5238554_300126083443.pdf','_blank')"
+          >
+            <div
+              class="absolute top-3 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-secondary-fixed/60 shadow-[0_0_6px_rgba(38,254,220,0.4)] group-hover:bg-secondary-fixed group-hover:shadow-[0_0_10px_rgba(38,254,220,0.7)] transition-all duration-300"
+            ></div>
+            <div
+              class="aspect-[4/3] rounded-xl overflow-hidden bg-black/50 border border-primary/10 relative"
+            >
+              <embed
+                class="w-full h-full"
+                src="certificate/sertifikat_course_905_5238554_300126083443.pdf#toolbar=0&navpanes=0&scrollbar=0&zoom=60"
+                type="application/pdf"
+              />
+              <div class="absolute inset-0 bg-transparent group-hover:bg-black/10 transition-colors"></div>
+            </div>
+            <p
+              class="mt-3 font-label-mono text-[11px] text-on-surface-variant/60 text-center group-hover:text-on-surface-variant transition-colors"
+            >
+              Sertifikat Dicoding
+            </p>
+            <div class="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity font-label-mono text-[9px] text-secondary-fixed bg-black/70 px-2 py-0.5 rounded pointer-events-none">
+              Buka →
+            </div>
+          </div>
+          <div
+            class="cert-card reveal delay-300 group relative bg-surface-container-lowest border border-secondary-fixed/10 rounded-2xl p-4 pt-8 cursor-pointer"
+            onclick="window.open('certificate/17. Arrofi Nur Ilham Fathoni Ryanto.pdf','_blank')"
+          >
+            <div
+              class="absolute top-3 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-secondary-fixed/60 shadow-[0_0_6px_rgba(38,254,220,0.4)] group-hover:bg-secondary-fixed group-hover:shadow-[0_0_10px_rgba(38,254,220,0.7)] transition-all duration-300"
+            ></div>
+            <div
+              class="aspect-[4/3] rounded-xl overflow-hidden bg-black/50 border border-primary/10 relative"
+            >
+              <embed
+                class="w-full h-full"
+                src="certificate/17. Arrofi Nur Ilham Fathoni Ryanto.pdf#toolbar=0&navpanes=0&scrollbar=0&zoom=60"
+                type="application/pdf"
+              />
+              <div class="absolute inset-0 bg-transparent group-hover:bg-black/10 transition-colors"></div>
+            </div>
+            <p
+              class="mt-3 font-label-mono text-[11px] text-on-surface-variant/60 text-center group-hover:text-on-surface-variant transition-colors"
+            >
+              Sertifikat Arrofi
+            </p>
+            <div class="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity font-label-mono text-[9px] text-secondary-fixed bg-black/70 px-2 py-0.5 rounded pointer-events-none">
+              Buka →
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── TERMINAL ── -->
+      <section
+        id="terminal"
+        class="w-full px-margin-mobile md:px-margin-desktop py-12 relative max-w-container-max mx-auto"
+      >
+        <div class="flex items-center gap-3 mb-8 reveal">
+          <span class="material-symbols-outlined text-primary text-lg"
+            >terminal</span
+          >
+          <h2
+            class="font-label-mono text-sm uppercase tracking-[0.4em] text-primary"
+          >
+            Environment
+          </h2>
+          <div
+            class="h-px flex-1 bg-gradient-to-r from-primary/30 to-transparent"
+          ></div>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter reveal">
+          <div
+            class="lg:col-span-7 border border-primary/20 bg-surface-container-lowest/90 backdrop-blur-md relative shadow-[0_0_30px_rgba(157,78,221,0.05)]"
+          >
+            <div
+              class="flex items-center justify-between border-b border-primary/10 bg-black/50 px-4 py-2 font-label-mono text-xs"
+            >
+              <div class="flex items-center gap-2">
+                <span
+                  class="w-2.5 h-2.5 rounded-full bg-error opacity-70"
+                ></span>
+                <span
+                  class="w-2.5 h-2.5 rounded-full bg-secondary-fixed-dim opacity-70"
+                ></span>
+                <span
+                  class="w-2.5 h-2.5 rounded-full bg-primary opacity-70"
+                ></span>
+                <span class="text-outline ml-2">// SYSTEM_IDE.EXE</span>
+              </div>
+              <div
+                class="flex items-center gap-1 overflow-x-auto max-w-full"
+                id="tab-bar"
+              >
+                <div id="tab-container" class="flex items-center gap-1"></div>
+                <button
+                  id="btn-new-tab"
+                  class="px-2 py-1 shrink-0 text-primary hover:text-secondary-fixed transition-colors text-sm font-bold"
+                  title="New file"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+            <div
+              class="p-4 font-label-mono text-xs md:text-sm overflow-x-auto h-64 bg-black/30"
+            >
+              <pre
+                id="code-content"
+                class="text-on-surface-variant/90 leading-relaxed outline-none whitespace-pre"
+                contenteditable="true"
+                spellcheck="false"
+              ></pre>
+            </div>
+            <div
+              class="border-t border-primary/10 px-4 py-1.5 font-label-mono text-[10px] text-outline flex justify-between bg-black/20"
+            >
+              <span>LF // UTF-8</span><span>CodeEditor</span>
+            </div>
+          </div>
+          <div
+            class="lg:col-span-5 border border-secondary-fixed/20 bg-black/90 p-4 md:p-6 shadow-[0_0_40px_rgba(38,254,220,0.05)] flex flex-col justify-between"
+          >
+            <div>
+              <div
+                class="flex items-center gap-3 mb-4 border-b border-secondary-fixed/10 pb-2"
+              >
+                <div
+                  class="w-2 h-2 rounded-full bg-secondary-fixed animate-ping"
+                ></div>
+                <h3
+                  class="font-label-mono text-secondary-fixed uppercase tracking-[0.3em] text-[11px]"
+                >
+                  Live Activity Log
+                </h3>
+              </div>
+              <div
+                class="font-label-mono text-[11px] md:text-xs space-y-2 h-52 overflow-y-auto vertical-interlace pr-2 scroll-smooth"
+                id="terminal-log"
+              >
+                <p class="text-on-surface-variant opacity-60">
+                  [10:14:02] — Menginisialisasi sistem portofolio...
+                </p>
+                <p class="text-secondary-fixed-dim">
+                  [10:14:05] — Memuat data modul keahlian... Sukses.
+                </p>
+                <p class="text-primary">[10:14:12] — Koneksi siap dibuat.</p>
+                <p class="text-on-surface-variant opacity-40 italic">
+                  > Menunggu aktivitas jaringan...
+                </p>
+              </div>
+            </div>
+            <div class="mt-3 border-t border-secondary-fixed/10 pt-2">
+              <div class="flex items-center gap-2 font-label-mono text-[11px]">
+                <span class="text-secondary-fixed shrink-0">$</span>
+                <input
+                  id="terminal-input"
+                  type="text"
+                  class="flex-1 bg-transparent border-none outline-none text-on-surface-variant placeholder-outline/30 font-label-mono"
+                  placeholder="ketik perintah..."
+                  autocomplete="off"
+                  spellcheck="false"
+                />
+              </div>
+            </div>
+            <div
+              class="flex items-center justify-between font-label-mono text-[10px] mt-1"
+            >
+              <div class="text-outline">
+                STATUS: <span class="text-secondary-fixed">ENCRYPTED</span>
+              </div>
+              <div
+                class="text-outline animate-pulse cursor-none hover:text-primary"
+                onclick="clearTerminal()"
+              >
+                [BERSIHKAN]
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── RANDOM GALLERY ── -->
+      <section
+        id="random-gallery"
+        class="w-full px-margin-mobile md:px-margin-desktop py-12 relative max-w-container-max mx-auto"
+      >
+        <div class="flex items-center gap-3 mb-2 reveal">
+          <span class="material-symbols-outlined text-primary text-lg"
+            >photo_library</span
+          >
+          <h2
+            class="font-label-mono text-sm uppercase tracking-[0.4em] text-primary"
+          >
+            Galeri Acak
+          </h2>
+          <div
+            class="h-px flex-1 bg-gradient-to-r from-primary/30 to-transparent"
+          ></div>
+        </div>
+        <p class="mt-2 mb-8 text-on-surface-variant text-xs md:text-sm reveal">
+          Pencapaian game, momen keseharian, dan koleksi random lainnya.
+        </p>
+        <div id="masonry-grid" class="masonry-grid"></div>
+        <button class="load-more-btn" id="load-more-btn">Muat Lagi</button>
+      </section>
+
+      <!-- ── LIGHTBOX ── -->
+      <div id="lightbox">
+        <button class="lb-close" id="lb-close">&times;</button>
+        <button class="lb-nav lb-prev" id="lb-prev">&#8249;</button>
+        <button class="lb-nav lb-next" id="lb-next">&#8250;</button>
+        <img id="lb-image" src="" alt="" />
+        <div class="lb-counter" id="lb-counter"></div>
+      </div>
+
+      <!-- ── FOOTER ── -->
+      <footer
+        id="footer"
+        class="w-full px-margin-mobile md:px-margin-desktop py-12 relative max-w-container-max mx-auto border-t border-primary/10 mt-8"
+      >
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+          <div class="md:col-span-5">
+            <div
+              class="text-headline-md font-headline-md tracking-tighter text-primary uppercase glow-sm"
+            >
+              CORE//PORTFOLIO
+            </div>
+            <p
+              class="mt-3 text-on-surface-variant text-xs md:text-sm leading-relaxed max-w-sm"
+            >
+              Sistem portofolio interaktif berbasis terminal. Dirancang dengan
+              estetika cyberpunk dan pengalaman navigasi yang imersif.
+            </p>
+            <div class="flex items-center gap-4 mt-5">
+              <div
+                class="w-2 h-2 rounded-full bg-secondary-fixed animate-ping"
+              ></div>
+              <span class="font-label-mono text-[11px] text-secondary-fixed"
+                >STATUS: <span class="text-outline">TERSAMBUNG</span></span
+              >
+            </div>
+          </div>
+          <div class="md:col-span-3 md:col-start-7">
+            <h4
+              class="font-label-mono text-[11px] uppercase tracking-[0.3em] text-outline mb-4"
+            >
+              Navigasi
+            </h4>
+            <div class="flex flex-col gap-2.5">
+              <a
+                href="#about"
+                class="font-label-mono text-xs text-on-surface-variant/60 hover:text-secondary-fixed transition-colors"
+                >BIOGRAPHY</a
+              >
+              <a
+                href="#skills"
+                class="font-label-mono text-xs text-on-surface-variant/60 hover:text-secondary-fixed transition-colors"
+                >CAPABILITIES</a
+              >
+              <a
+                href="#projects"
+                class="font-label-mono text-xs text-on-surface-variant/60 hover:text-secondary-fixed transition-colors"
+                >PROJECTS</a
+              >
+              <a
+                href="#gallery"
+                class="font-label-mono text-xs text-on-surface-variant/60 hover:text-secondary-fixed transition-colors"
+                >CERTIFICATES</a
+              >
+              <a
+                href="#random-gallery"
+                class="font-label-mono text-xs text-on-surface-variant/60 hover:text-secondary-fixed transition-colors"
+                >GALLERY</a
+              >
+              <a
+                href="#terminal"
+                class="font-label-mono text-xs text-on-surface-variant/60 hover:text-secondary-fixed transition-colors"
+                >ENVIRONMENT</a
+              >
+            </div>
+          </div>
+          <div class="md:col-span-4">
+            <h4
+              class="font-label-mono text-[11px] uppercase tracking-[0.3em] text-outline mb-4"
+            >
+              Koneksi
+            </h4>
+            <div class="flex flex-col gap-2.5">
+              <a
+                href="https://github.com/ayomiyoi"
+                class="group flex items-center gap-2 font-label-mono text-xs text-on-surface-variant/60 hover:text-secondary-fixed transition-colors"
+              >
+                <span class="material-symbols-outlined text-sm"
+                  >stadia_controller</span
+                >
+                GitHub
+                <span
+                  class="text-outline/30 group-hover:translate-x-1 transition-transform"
+                  >→</span
+                >
+              </a>
+              <a
+                href="https://tiktok.com/@somethingaboutrop"
+                class="group flex items-center gap-2 font-label-mono text-xs text-on-surface-variant/60 hover:text-secondary-fixed transition-colors"
+              >
+                <span class="material-symbols-outlined text-sm">music_video</span>
+                TikTok
+                <span
+                  class="text-outline/30 group-hover:translate-x-1 transition-transform"
+                  >→</span
+                >
+              </a>
+              <a
+                href="https://instagram.com/ropp_44"
+                class="group flex items-center gap-2 font-label-mono text-xs text-on-surface-variant/60 hover:text-secondary-fixed transition-colors"
+              >
+                <span class="material-symbols-outlined text-sm">photo_camera</span>
+                Instagram
+                <span
+                  class="text-outline/30 group-hover:translate-x-1 transition-transform"
+                  >→</span
+                >
+              </a>
+              <a
+                href="https://wa.me/6285702552260"
+                class="group flex items-center gap-2 font-label-mono text-xs text-on-surface-variant/60 hover:text-secondary-fixed transition-colors"
+              >
+                <span class="material-symbols-outlined text-sm">chat</span>
+                WhatsApp
+                <span
+                  class="text-outline/30 group-hover:translate-x-1 transition-transform"
+                  >→</span
+                >
+              </a>
+              <a
+                href="https://discord.com/users/arrofi"
+                class="group flex items-center gap-2 font-label-mono text-xs text-on-surface-variant/60 hover:text-secondary-fixed transition-colors"
+              >
+                <span class="material-symbols-outlined text-sm">headset_mic</span>
+                Discord
+                <span
+                  class="text-outline/30 group-hover:translate-x-1 transition-transform"
+                  >→</span
+                >
+              </a>
+              <a
+                href="mailto:Ayomi3976@gmail.com"
+                class="group flex items-center gap-2 font-label-mono text-xs text-on-surface-variant/60 hover:text-secondary-fixed transition-colors"
+              >
+                <span class="material-symbols-outlined text-sm">mail</span>
+                Ayomi3976@gmail.com
+                <span
+                  class="text-outline/30 group-hover:translate-x-1 transition-transform"
+                  >→</span
+                >
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          class="mt-10 pt-6 border-t border-primary/5 flex flex-col md:flex-row justify-between items-center gap-3"
+        >
+          <span class="font-label-mono text-[10px] text-outline/50"
+            >HAK CIPTA DIALIRKAN // © 2026 Arrofi Nur I</span
+          >
+          <span class="font-label-mono text-[10px] text-outline/30"
+            >Dibangun dengan
+            <span class="text-secondary-fixed">[ TERMINAL ]</span> dan
+            semangat</span
+          >
+        </div>
+      </footer>
+
+      <!-- ── PROJECT MODAL ── -->
+      <div id="project-modal" class="modal-overlay">
+        <div class="modal-content">
+          <button onclick="closeProjectModal()" class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center text-outline hover:text-primary hover:bg-primary/10 rounded-lg transition-all">
+            <span class="material-symbols-outlined text-lg">close</span>
+          </button>
+          <div class="flex items-center gap-2 mb-1">
+            <span id="modal-badge" class="text-xs font-label-mono text-outline/60"></span>
+          </div>
+          <h3 id="modal-title" class="font-headline-md text-primary text-xl md:text-2xl uppercase tracking-tight mb-3"></h3>
+          <div id="modal-screenshot" class="aspect-video rounded-xl overflow-hidden border border-primary/10 mb-4 bg-gradient-to-br from-primary/10 to-secondary-fixed/5 flex items-center justify-center">
+            <img id="modal-img" class="w-full h-full object-cover" src="" alt="Project screenshot" loading="lazy"/>
+          </div>
+          <p id="modal-desc" class="font-label-mono text-sm text-on-surface-variant/80 leading-relaxed mb-4"></p>
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="font-label-mono text-xs text-secondary-fixed-dim bg-secondary-fixed/5 px-2 py-1 rounded">Tech Stack</span>
+            <span id="modal-tech" class="font-label-mono text-xs text-primary/80"></span>
+          </div>
+          <div class="border-t border-primary/10 pt-3">
+            <p class="font-label-mono text-xs text-outline/50 uppercase tracking-wider mb-2">Fitur Utama</p>
+            <div id="modal-features" class="space-y-1"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <nav
+      class="fixed bottom-0 left-0 w-full z-[100] bg-surface/90 backdrop-blur-xl border-t border-primary/20 flex md:hidden justify-around items-center py-2 safe-area-bottom"
+    >
+      <a href="#about" class="bottom-nav-link flex flex-col items-center gap-0.5 text-primary min-h-[44px] min-w-[44px] justify-center">
+        <span class="material-symbols-outlined text-xl">person</span>
+        <span class="font-label-mono text-[9px] uppercase tracking-wider"
+          >Bio</span
+        >
+      </a>
+      <a
+        href="#skills"
+        class="bottom-nav-link flex flex-col items-center gap-0.5 text-outline hover:text-primary transition-colors min-h-[44px] min-w-[44px] justify-center"
+      >
+        <span class="material-symbols-outlined text-xl">psychology</span>
+        <span class="font-label-mono text-[9px] uppercase tracking-wider"
+          >Skills</span
+        >
+      </a>
+      <a
+        href="#projects"
+        class="bottom-nav-link flex flex-col items-center gap-0.5 text-outline hover:text-primary transition-colors min-h-[44px] min-w-[44px] justify-center"
+      >
+        <span class="material-symbols-outlined text-xl">layers</span>
+        <span class="font-label-mono text-[9px] uppercase tracking-wider"
+          >Projects</span
+        >
+      </a>
+      <a
+        href="#gallery"
+        class="bottom-nav-link flex flex-col items-center gap-0.5 text-outline hover:text-primary transition-colors min-h-[44px] min-w-[44px] justify-center"
+      >
+        <span class="material-symbols-outlined text-xl">verified</span>
+        <span class="font-label-mono text-[9px] uppercase tracking-wider"
+          >Cert</span
+        >
+      </a>
+      <a
+        href="#random-gallery"
+        class="bottom-nav-link flex flex-col items-center gap-0.5 text-outline hover:text-primary transition-colors min-h-[44px] min-w-[44px] justify-center"
+      >
+        <span class="material-symbols-outlined text-xl">photo_library</span>
+        <span class="font-label-mono text-[9px] uppercase tracking-wider"
+          >Gallery</span
+        >
+      </a>
+      <a
+        href="#terminal"
+        class="bottom-nav-link flex flex-col items-center gap-0.5 text-outline hover:text-primary transition-colors min-h-[44px] min-w-[44px] justify-center"
+      >
+        <span class="material-symbols-outlined text-xl">terminal</span>
+        <span class="font-label-mono text-[9px] uppercase tracking-wider"
+          >Terminal</span
+        >
+      </a>
+    </nav>
+
+    <script>
+      const loadingScreen = document.getElementById("loading-screen");
+      const loadingFill = document.getElementById("loading-bar-fill");
+      const loadingStatus = document.getElementById("loading-status");
+      const bootSteps = [
+        [10, "Initializing kernel..."],
+        [25, "Loading environment variables..."],
+        [45, "Mounting portfolio modules..."],
+        [65, "Compiling skill matrix..."],
+        [80, "Establishing connections..."],
+        [95, "Rendering UI..."],
+        [100, "System ready."],
+      ];
+      let stepIdx = 0;
+      const bootInterval = setInterval(() => {
+        if (stepIdx >= bootSteps.length) {
+          clearInterval(bootInterval);
+          setTimeout(() => {
+            loadingScreen.classList.add("hidden");
+            document
+              .querySelectorAll(".reveal, .reveal-left, .reveal-right")
+              .forEach((el) => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight) el.classList.add("visible");
+              });
+            startHeroTyping();
+          }, 300);
+          return;
+        }
+        const [pct, msg] = bootSteps[stepIdx++];
+        loadingFill.style.width = pct + "%";
+        loadingStatus.textContent = msg;
+      }, 220);
+
+      const dot = document.getElementById("cursor-dot");
+      const ring = document.getElementById("cursor-ring");
+      let mouseX = 0,
+        mouseY = 0,
+        ringX = 0,
+        ringY = 0;
+
+      document.addEventListener("mousemove", (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        dot.style.left = mouseX + "px";
+        dot.style.top = mouseY + "px";
+      });
+      function animateRing() {
+        ringX += (mouseX - ringX) * 0.12;
+        ringY += (mouseY - ringY) * 0.12;
+        ring.style.left = ringX + "px";
+        ring.style.top = ringY + "px";
+        requestAnimationFrame(animateRing);
+      }
+      animateRing();
+
+      document
+        .querySelectorAll(
+          "a, button, [contenteditable], input, .project-card, .cert-card",
+        )
+        .forEach((el) => {
+          el.addEventListener("mouseenter", () => ring.classList.add("hover"));
+          el.addEventListener("mouseleave", () =>
+            ring.classList.remove("hover"),
+          );
+        });
+
+      function startHeroTyping() {
+        const el = document.getElementById("hero-sub");
+        const text = "HERE //";
+        let i = 0;
+        const t = setInterval(() => {
+          el.textContent = text.slice(0, ++i);
+          if (i >= text.length) clearInterval(t);
+        }, 90);
+      }
+
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("visible");
+            }
+          });
+        },
+        { threshold: 0.12, rootMargin: "0px 0px -40px 0px" },
+      );
+
+      document
+        .querySelectorAll(".reveal, .reveal-left, .reveal-right")
+        .forEach((el) => revealObserver.observe(el));
+
+      const skillObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.querySelectorAll(".skill-bar-fill").forEach((bar, i) => {
+                setTimeout(() => bar.classList.add("active"), i * 120);
+              });
+            }
+          });
+        },
+        { threshold: 0.3 },
+      );
+      document
+        .querySelectorAll("#skills")
+        .forEach((s) => skillObserver.observe(s));
+
+      const mainNav = document.getElementById("main-nav");
+      window.addEventListener(
+        "scroll",
+        () => {
+          if (window.scrollY > 60) {
+            mainNav.classList.add(
+              "py-2",
+              "shadow-[0_2px_20px_rgba(157,78,221,0.1)]",
+            );
+            mainNav.classList.remove("py-4");
+          } else {
+            mainNav.classList.remove(
+              "py-2",
+              "shadow-[0_2px_20px_rgba(157,78,221,0.1)]",
+            );
+            mainNav.classList.add("py-4");
+          }
+        },
+        { passive: true },
+      );
+
+      const navLinks = document.querySelectorAll('nav a[href^="#"]');
+      const sections = document.querySelectorAll("section[id], footer[id]");
+      const sectionObserverNav = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              navLinks.forEach((a) => {
+                a.classList.remove(
+                  "text-secondary-fixed",
+                  "font-bold",
+                  "glow-teal",
+                );
+                a.classList.add("text-on-surface-variant/70");
+              });
+              const active = document.querySelector(
+                `nav a[href="#${e.target.id}"]`,
+              );
+              if (active) {
+                active.classList.add(
+                  "text-secondary-fixed",
+                  "font-bold",
+                  "glow-teal",
+                );
+                active.classList.remove("text-on-surface-variant/70");
+              }
+            }
+          });
+        },
+        { threshold: 0.4 },
+      );
+      sections.forEach((s) => sectionObserverNav.observe(s));
+
+      const scanline = document.getElementById("scanline");
+      document.body.addEventListener("click", (e) => {
+        if (e.target.tagName === "BUTTON") return;
+        scanline.style.opacity = "0.55";
+        setTimeout(() => {
+          scanline.style.opacity = "0.3";
+        }, 80);
+      });
+
+      const terminalLog = document.getElementById("terminal-log");
+      const codeContent = document.getElementById("code-content");
+      const tabContainer = document.getElementById("tab-container");
+      const btnNewTab = document.getElementById("btn-new-tab");
+      const terminalInput = document.getElementById("terminal-input");
+
+      function pushLog(
+        message,
+        className = "text-on-surface-variant opacity-80",
+      ) {
+        const now = new Date();
+        const ts = `[${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}:${String(now.getSeconds()).padStart(2, "0")}]`;
+        const p = document.createElement("p");
+        p.className = className + " transition-opacity duration-300";
+        p.textContent = `${ts} — ${message}`;
+        terminalLog.appendChild(p);
+        if (terminalLog.children.length > 30)
+          terminalLog.removeChild(terminalLog.firstChild);
+        terminalLog.scrollTop = terminalLog.scrollHeight;
+      }
+      function clearTerminal() {
+        terminalLog.innerHTML = "";
+        pushLog("Terminal dibersihkan.", "text-primary");
+      }
+
+      function highlightCode(code) {
+        let h = code
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
+        h = h.replace(
+          /(\/\/[^\n]*)/g,
+          '<span class="text-outline opacity-50">$1</span>',
+        );
+        h = h.replace(
+          /(&quot;(?:[^&]|&(?!quot;))*?&quot;|'(?:[^'\\]|\\.)*'|`(?:[^`\\]|\\.)*`)/g,
+          '<span class="text-primary">$1</span>',
+        );
+        h = h.replace(
+          /\b(const|let|var|function|class|return|if|else|for|while|do|switch|case|break|continue|new|this|true|false|null|undefined|typeof|instanceof|try|catch|finally|throw|import|export|default|from|as|async|await|yield|in|of|console|log)\b/g,
+          '<span class="text-secondary-fixed-dim">$1</span>',
+        );
+        h = h.replace(
+          /\b(\d+\.?\d*)\b/g,
+          '<span class="text-secondary-fixed">$1</span>',
+        );
+        return h;
+      }
+
+      function saveCursor(el) {
+        const sel = window.getSelection();
+        if (!sel.rangeCount) return null;
+        const range = sel.getRangeAt(0);
+        if (!el.contains(range.startContainer)) return null;
+        const pre = document.createRange();
+        pre.selectNodeContents(el);
+        pre.setEnd(range.startContainer, range.startOffset);
+        return pre.toString().length;
+      }
+      function restoreCursor(el, pos) {
+        if (pos == null) return;
+        const sel = window.getSelection();
+        const range = document.createRange();
+        const walker = document.createTreeWalker(
+          el,
+          NodeFilter.SHOW_TEXT,
+          null,
+          false,
+        );
+        let node,
+          offset = 0;
+        while ((node = walker.nextNode())) {
+          const len = node.textContent.length;
+          if (pos <= offset + len) {
+            range.setStart(node, pos - offset);
+            range.collapse(true);
+            sel.removeAllRanges();
+            sel.addRange(range);
+            return;
+          }
+          offset += len;
+        }
+        range.selectNodeContents(el);
+        range.collapse(false);
+        sel.removeAllRanges();
+        sel.addRange(range);
+      }
+      function applyHighlight() {
+        const pos = saveCursor(codeContent);
+        codeContent.innerHTML = highlightCode(codeContent.textContent);
+        restoreCursor(codeContent, pos);
+      }
+
+      let tabs = [
+        {
+          id: 0,
+          name: "index.js",
+          content:
+            'const developer = {\n  name: "Arrofi",\n  role: "Full-Stack Developer",\n  metrics: { speed: "Optimal", status: "Active" },\n  compile: function() {\n    console.log("Building digital future...");\n  }\n};\n\ndeveloper.compile();',
+          lang: "JavaScript",
+        },
+        {
+          id: 1,
+          name: "styles.css",
+          content:
+            ":root {\n  --neon-glow: #26fedc;\n  --cyber-dark: #050505;\n}\n\n.portfolio-core {\n  background: var(--cyber-dark);\n  box-shadow: 0 0 20px var(--neon-glow);\n}",
+          lang: "CSS",
+        },
+      ];
+      let activeTabId = 0,
+        nextId = 2,
+        editorReady = false;
+
+      function getActiveTab() {
+        return tabs.find((t) => t.id === activeTabId);
+      }
+      function saveActiveContent() {
+        const t = getActiveTab();
+        if (t) t.content = codeContent.textContent;
+      }
+
+      function renderTabs() {
+        tabContainer.innerHTML = "";
+        tabs.forEach((tab) => {
+          const btn = document.createElement("button");
+          btn.dataset.tabId = tab.id;
+          const isActive = tab.id === activeTabId;
+          btn.className = `flex items-center gap-1 px-3 py-1 font-label-mono text-xs shrink-0 transition-all border-t border-x ${isActive ? "bg-surface border-primary/30 text-primary font-bold" : "text-outline hover:text-on-surface border-transparent"}`;
+          const closeHtml =
+            tab.name !== "index.js" && tabs.length > 1
+              ? `<span data-close="${tab.id}" class="ml-1.5 hover:text-error transition-colors text-[10px] opacity-60 hover:opacity-100">&times;</span>`
+              : "";
+          btn.innerHTML = tab.name + closeHtml;
+          btn.addEventListener("click", (e) => {
+            if (e.target.dataset.close !== undefined) {
+              const cid = parseInt(e.target.dataset.close);
+              const t = tabs.find((x) => x.id === cid);
+              if (t && t.name !== "index.js") closeTab(cid);
+            } else {
+              switchCodeTab(tab.id);
+            }
+          });
+          tabContainer.appendChild(btn);
+        });
+        btnNewTab.classList.toggle("hidden", tabs.length >= 8);
+      }
+
+      function switchCodeTab(id) {
+        if (editorReady) saveActiveContent();
+        activeTabId = id;
+        const tab = getActiveTab();
+        if (tab) {
+          codeContent.textContent = tab.content;
+          applyHighlight();
+        }
+        renderTabs();
+        editorReady = true;
+      }
+
+      function closeTab(id) {
+        if (tabs.length <= 1) return;
+        saveActiveContent();
+        const idx = tabs.findIndex((t) => t.id === id);
+        tabs.splice(idx, 1);
+        if (activeTabId === id) {
+          const next = tabs[Math.min(idx, tabs.length - 1)];
+          activeTabId = next.id;
+          codeContent.textContent = next.content;
+          applyHighlight();
+        }
+        renderTabs();
+      }
+
+      function addNewTab() {
+        const id = nextId++;
+        const count = tabs.length + 1;
+        tabs.push({
+          id,
+          name: `untitled-${count}.js`,
+          content: "",
+          lang: "JavaScript",
+        });
+        switchCodeTab(id);
+        pushLog(`Membuat file baru: untitled-${count}.js`, "text-primary");
+        codeContent.focus();
+      }
+      btnNewTab.addEventListener("click", addNewTab);
+
+      let editTimer;
+      codeContent.addEventListener("input", () => {
+        clearTimeout(editTimer);
+        editTimer = setTimeout(applyHighlight, 400);
+      });
+      codeContent.addEventListener("keydown", (e) => {
+        if (e.key === "Tab") {
+          e.preventDefault();
+          document.execCommand("insertText", false, "  ");
+        }
+      });
+
+      const fs = {
+        "README.md": "# Portfolio\nProyek portofolio pribadi.",
+        "package.json": '{\n  "name": "portfolio",\n  "version": "1.0.0"\n}',
+        src: { "app.js": "// entry point", "utils.js": "// utility functions" },
+      };
+
+      function executeCommand(input) {
+        const parts = input.trim().split(/\s+/);
+        const cmd = parts[0].toLowerCase();
+        const args = parts.slice(1);
+        switch (cmd) {
+          case "help":
+            return `Available commands:\n  help  — Tampilkan bantuan\n  echo  — Cetak teks\n  ls    — Daftar file\n  pwd   — Direktori aktif\n  clear — Bersihkan terminal\n  whoami — Tampilkan user\n  date  — Waktu sekarang\n  cat   — Baca file\n  node  — Jalankan kode\n  compile — Kompilasi\n  run   — Eksekusi\n  touch — Buat file\n  rm    — Hapus file`;
+          case "echo":
+            return args.join(" ") || "";
+          case "ls": {
+            const dir = args[0] || ".";
+            if (dir === "." || dir === "/")
+              return "index.html  style.css  README.md  package.json  src/";
+            const entry = fs[dir.replace("/", "")];
+            if (entry && typeof entry === "object")
+              return Object.keys(entry).join("  ");
+            return `ls: cannot access '${dir}': No such directory`;
+          }
+          case "pwd":
+            return "/home/user/portfolio";
+          case "whoami":
+            return "developer@arrofi";
+          case "date":
+            return new Date().toString();
+          case "uname":
+            return "PORTFOLIO-OS x86_64 Cyber/Linux 6.8.0-porto";
+          case "cat": {
+            const file = args[0];
+            if (!file) return "cat: missing operand";
+            if (fs[file])
+              return typeof fs[file] === "string"
+                ? fs[file]
+                : `cat: ${file}: Is a directory`;
+            return `cat: ${file}: No such file`;
+          }
+          case "node":
+            return `[Node.js v22.3.0]\n> ${getActiveTab()?.name || "index.js"} loaded\n> Execution complete (0.042s)`;
+          case "compile": {
+            const tab = getActiveTab();
+            const lines = tab.content.split("\n").length;
+            return `Compiling ${tab.name}...\n  [INFO] Parsing ${lines} lines\n  [SUCCESS] Build complete in 0.087s\n  Output: ./dist/${tab.name.replace(/\.\w+$/, ".bundle.js")}`;
+          }
+          case "run": {
+            const tab = getActiveTab();
+            if (tab.lang === "CSS") return `[Runtime] CSS injection complete.`;
+            return tab.content.includes("console.log")
+              ? `> "Building digital future..."\n> Execution finished (0.023s)`
+              : `> (no output)\n> Process exited with code 0`;
+          }
+          case "touch": {
+            const name = args[0];
+            if (!name) return "touch: missing operand";
+            if (tabs.some((t) => t.name === name))
+              return `touch: ${name}: File exists`;
+            const id = nextId++;
+            tabs.push({
+              id,
+              name,
+              content: "",
+              lang: name.endsWith(".css") ? "CSS" : "JavaScript",
+            });
+            switchCodeTab(id);
+            pushLog(`File dibuat: ${name}`, "text-secondary-fixed-dim");
+            return `touch: ${name} created`;
+          }
+          case "mkdir":
+            return args[0]
+              ? `mkdir: created directory '${args[0]}'`
+              : "mkdir: missing operand";
+          case "rm": {
+            const name = args[0];
+            if (!name) return "rm: missing operand";
+            const idx = tabs.findIndex((t) => t.name === name);
+            if (idx === -1) return `rm: cannot remove '${name}': No such file`;
+            if (tabs.length <= 1) return "rm: cannot remove last file";
+            closeTab(tabs[idx].id);
+            pushLog(`File dihapus: ${name}`, "text-secondary-fixed-dim");
+            return `rm: removed '${name}'`;
+          }
+          case "clear":
+            clearTerminal();
+            return null;
+          case "":
+            return null;
+          default:
+            return `bash: ${cmd}: command not found. Ketik 'help' untuk bantuan.`;
+        }
+      }
+
+      terminalInput.addEventListener("keydown", (e) => {
+        if (e.key !== "Enter") return;
+        const input = terminalInput.value.trim();
+        terminalInput.value = "";
+        if (!input) return;
+        const now = new Date();
+        const ts = `[${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}:${String(now.getSeconds()).padStart(2, "0")}]`;
+        const inputP = document.createElement("p");
+        inputP.className = "text-secondary-fixed";
+        inputP.textContent = `${ts} ─ $ ${input}`;
+        terminalLog.appendChild(inputP);
+        const result = executeCommand(input);
+        if (result) {
+          result.split("\n").forEach((line) => {
+            const p = document.createElement("p");
+            p.className = "text-on-surface-variant opacity-90 ml-2";
+            p.textContent = line;
+            terminalLog.appendChild(p);
+          });
+        }
+        terminalLog.scrollTop = terminalLog.scrollHeight;
+      });
+
+      const map = {
+        about: "BIOGRAPHY",
+        skills: "CAPABILITIES",
+        projects: "PROJECTS",
+        gallery: "CERTIFICATES",
+        "random-gallery": "GALLERY",
+        terminal: "ENVIRONMENT",
+      };
+      const seen = new Set();
+      const sectionTracker = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting && !seen.has(e.target.id)) {
+              seen.add(e.target.id);
+              pushLog(
+                `Memuat modul: ${map[e.target.id] || e.target.id.toUpperCase()}.`,
+                "text-primary",
+              );
+            }
+          });
+        },
+        { threshold: 0.4 },
+      );
+      document
+        .querySelectorAll("section[id]")
+        .forEach((s) => sectionTracker.observe(s));
+
+      const projectData = [
+        {
+          badge: "01 // WEB",
+          title: "Management Keuangan PT-Buana",
+          desc: "Sistem manajemen keuangan berbasis web untuk PT-Buana. Mencakup pencatatan transaksi, laporan keuangan otomatis, manajemen anggaran, dan dashboard analitik real-time.",
+          img: "foto/Screenshot 2026-06-29 123935.png",
+          tech: "Laravel, MySQL, Bootstrap, Chart.js",
+          features: [
+            "Pencatatan transaksi pemasukan & pengeluaran",
+            "Laporan keuangan otomatis (PDF/Excel)",
+            "Manajemen anggaran bulanan",
+            "Dashboard analitik dengan grafik interaktif",
+            "Multi-level user access (admin, staff)",
+          ],
+        },
+        {
+          badge: "02 // APP",
+          title: "Management Pengelolaan Laundry",
+          desc: "Aplikasi manajemen laundry berbasis web untuk mengelola pesanan, pelanggan, status pencucian, dan laporan pendapatan secara efisien.",
+          img: "foto/Screenshot 2026-06-29 133533.png",
+          tech: "Laravel, MySQL, Tailwind CSS",
+          features: [
+            "Manajemen pesanan masuk & keluar",
+            "Tracking status pencucian real-time",
+            "Manajemen data pelanggan & histori",
+            "Kalkulasi biaya otomatis",
+            "Laporan pendapatan harian/mingguan/bulanan",
+          ],
+        },
+        {
+          badge: "03 // CMS",
+          title: "CMS Web Hotel",
+          desc: "Content Management System untuk website hotel. Mengelola kamar, reservasi, konten halaman, galeri foto, dan testimoni tamu dengan mudah.",
+          img: "foto/Screenshot 2026-06-29 133951.png",
+          tech: "Laravel, MySQL, Bootstrap, Filemanager",
+          features: [
+            "Manajemen kamar & fasilitas",
+            "Sistem reservasi online terintegrasi",
+            "Manajemen konten halaman (tentang, fasilitas, kontak)",
+            "Galeri foto & testimoni tamu",
+            "Dashboard kontrol penuh untuk admin",
+          ],
+        },
+      ];
+
+      function openProjectModal(index) {
+        const p = projectData[index];
+        if (!p) return;
+        document.getElementById("modal-badge").textContent = p.badge;
+        document.getElementById("modal-title").textContent = p.title;
+        document.getElementById("modal-img").src = p.img;
+        document.getElementById("modal-desc").textContent = p.desc;
+        document.getElementById("modal-tech").textContent = p.tech;
+        const feat = document.getElementById("modal-features");
+        feat.innerHTML = p.features.map((f) => `<div class="modal-feature">${f}</div>`).join("");
+        document.getElementById("project-modal").classList.add("active");
+        pushLog(`Membuka detail proyek: "${p.title}"`, "text-secondary-fixed");
+      }
+
+      function closeProjectModal() {
+        document.getElementById("project-modal").classList.remove("active");
+      }
+
+      document.querySelectorAll("#projects .grid > div").forEach((card, i) => {
+        card.addEventListener("click", () => openProjectModal(i));
+        card.style.cursor = "pointer";
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeProjectModal();
+      });
+
+      const ambient = [
+        "Ping sistem — latensi 12ms.",
+        "Sinkronisasi data... OK.",
+        "Memori heap stabil.",
+        "SSL handshake valid.",
+        "Cycle engine: idle.",
+        "No threats detected.",
+        "Koneksi database: persistent.",
+        "Bandwidth: optimal.",
+      ];
+      setInterval(() => {
+        pushLog(
+          ambient[Math.floor(Math.random() * ambient.length)],
+          "text-outline opacity-40",
+        );
+      }, 14000);
+
+      const hamburgerBtn = document.getElementById("hamburger-btn");
+      const mobileDrawer = document.getElementById("mobile-drawer");
+      let drawerOpen = false;
+      function closeDrawer() {
+        drawerOpen = false;
+        mobileDrawer.classList.remove("opacity-100", "visible");
+        mobileDrawer.classList.add("opacity-0", "invisible");
+        hamburgerBtn.querySelector(".material-symbols-outlined").textContent = "menu";
+        document.body.style.overflow = "";
+      }
+      hamburgerBtn.addEventListener("click", () => {
+        drawerOpen = !drawerOpen;
+        if (drawerOpen) {
+          mobileDrawer.classList.remove("opacity-0", "invisible");
+          mobileDrawer.classList.add("opacity-100", "visible");
+          hamburgerBtn.querySelector(".material-symbols-outlined").textContent = "close";
+          document.body.style.overflow = "hidden";
+        } else {
+          closeDrawer();
+        }
+      });
+      mobileDrawer.addEventListener("click", (e) => {
+        if (e.target === mobileDrawer) closeDrawer();
+      });
+
+      const galleryImages = [
+        "Fokus FIGMAA stickerr wielino.webp",
+        "Rin Shima.jpg",
+        "ecill ayam geprek _ HOLO (@hyuckellsec) on X.webp",
+        "download.webp",
+        "download.jpg",
+        "download (5).jpg",
+        "izin min 😜😏.webp",
+        "download (4).jpg",
+        "Icon ;☆.jpg",
+        "download (3).jpg",
+        "download (2).jpg",
+        "download (2).webp",
+        "Meme panasss.webp",
+        "download (1).webp",
+        "WhatsApp Image 2026-06-29 at 13.01.42 (1).jpeg",
+        "download (1).jpg",
+        "sticker.webp",
+        "aku nak woi.webp",
+        "WhatsApp Image 2026-06-29 at 13.01.42.jpeg",
+        "WhatsApp Image 2026-06-29 at 13.01.47 (1).jpeg",
+        "WhatsApp Image 2026-06-29 at 13.01.46.jpeg",
+        "WhatsApp Image 2026-06-29 at 13.01.45.jpeg",
+        "WhatsApp Image 2026-06-29 at 13.01.44.jpeg",
+        "WhatsApp Image 2026-06-29 at 13.01.44 (1).jpeg",
+        "WhatsApp Image 2026-06-29 at 13.01.43.jpeg",
+        "WhatsApp Image 2026-06-29 at 13.01.48 (1).jpeg",
+        "WhatsApp Image 2026-06-29 at 13.01.47.jpeg",
+        "WhatsApp Image 2026-06-29 at 13.01.47 (2).jpeg",
+        "WhatsApp Image 2026-06-29 at 13.01.48.jpeg",
+        "WhatsApp Image 2026-06-29 at 13.01.48 (2).jpeg",
+        "WhatsApp Image 2026-06-29 at 13.01.49.jpeg",
+        "WhatsApp Image 2026-06-29 at 13.01.43 (1).jpeg",
+        "WhatsApp Image 2026-06-29 at 13.13.45.jpeg",
+        "WhatsApp Image 2026-06-29 at 13.13.45 (1).jpeg",
+      ];
+      function shuffle(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+      }
+
+      let shuffledGallery = [];
+      let galleryIndex = -1;
+      const PER_PAGE = 8;
+      let shownCount = 0;
+
+      function renderGallery(reset) {
+        const grid = document.getElementById("masonry-grid");
+        const btn = document.getElementById("load-more-btn");
+        if (!grid) return;
+        if (reset || shuffledGallery.length === 0) {
+          shuffledGallery = shuffle([...galleryImages]);
+          shownCount = 0;
+        }
+        const next = Math.min(shownCount + PER_PAGE, shuffledGallery.length);
+        const batch = shuffledGallery.slice(shownCount, next);
+        const items = batch
+          .map(
+            (f) =>
+              `<div class="masonry-item reveal"><img src="random-foto/${encodeURI(f)}" alt="" loading="lazy" /></div>`,
+          )
+          .join("");
+        if (shownCount === 0) {
+          grid.innerHTML = items;
+        } else {
+          grid.insertAdjacentHTML("beforeend", items);
+        }
+        shownCount = next;
+        if (btn) {
+          btn.classList.toggle("hidden", shownCount >= shuffledGallery.length);
+        }
+        grid.querySelectorAll(".masonry-item img").forEach((img) => {
+          img.addEventListener("click", function () {
+            const src = this.src;
+            const idx = shuffledGallery.findIndex((f) => "random-foto/" + encodeURI(f) === decodeURI(this.src.split("/").pop()));
+            // find by filename
+            openLightbox(src, idx >= 0 ? idx : 0);
+          });
+        });
+        requestAnimationFrame(() => {
+          grid.querySelectorAll(".reveal:not(.visible)").forEach((el) => revealObserver.observe(el));
+        });
+      }
+
+      document.getElementById("load-more-btn").addEventListener("click", () => renderGallery(false));
+
+      function openLightbox(src, idx) {
+        galleryIndex = idx;
+        const img = document.getElementById("lb-image");
+        img.src = src;
+        document.getElementById("lb-counter").textContent = `${idx + 1} / ${shuffledGallery.length}`;
+        document.getElementById("lightbox").classList.add("active");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeLightbox() {
+        document.getElementById("lightbox").classList.remove("active");
+        document.body.style.overflow = "";
+      }
+
+      function navLightbox(dir) {
+        const len = shuffledGallery.length;
+        if (len === 0) return;
+        galleryIndex = (galleryIndex + dir + len) % len;
+        const src = "random-foto/" + encodeURI(shuffledGallery[galleryIndex]);
+        document.getElementById("lb-image").src = src;
+        document.getElementById("lb-counter").textContent = `${galleryIndex + 1} / ${len}`;
+      }
+
+      document.getElementById("lb-close").addEventListener("click", closeLightbox);
+      document.getElementById("lb-prev").addEventListener("click", () => navLightbox(-1));
+      document.getElementById("lb-next").addEventListener("click", () => navLightbox(1));
+      document.getElementById("lightbox").addEventListener("click", (e) => {
+        if (e.target === e.currentTarget) closeLightbox();
+      });
+      document.addEventListener("keydown", (e) => {
+        if (!document.getElementById("lightbox").classList.contains("active")) return;
+        if (e.key === "Escape") closeLightbox();
+        if (e.key === "ArrowLeft") navLightbox(-1);
+        if (e.key === "ArrowRight") navLightbox(1);
+      });
+
+      renderGallery(true);
+
+      document.querySelectorAll('a[href^="#"]').forEach((a) => {
+        a.addEventListener("click", (e) => {
+          const target = document.querySelector(a.getAttribute("href"));
+          if (target) {
+            e.preventDefault();
+            const offset = 80;
+            const top = target.getBoundingClientRect().top + window.scrollY - offset;
+            window.scrollTo({ top, behavior: "smooth" });
+            if (mobileDrawer.classList.contains("visible") || mobileDrawer.classList.contains("opacity-100")) closeDrawer();
+          }
+        });
+      });
+
+      switchCodeTab(0);
+    </script>
+  </body>
+</html>
